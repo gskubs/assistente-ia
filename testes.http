@@ -1,0 +1,7 @@
+POST http://localhost:8080/feedback
+Content-Type: application/json
+
+{
+  "cliente": "Guilherme",
+  "comentario": "O sistema de vocês ficou TOP!!"
+}

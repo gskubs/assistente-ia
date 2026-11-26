@@ -12,14 +12,19 @@ public class TriagemService {
     public TriagemService(ChatClient.Builder builder) {
         this.chatClient = builder.build();
     }
-    public TriagemChamado analisar (String descricaoProblema) {
-        // 1. Devolvemos uma resposta simulada (Mock) para testar sem gastar cota:
-        return new TriagemChamado("Infraestrutura", true, "Reiniciar roteador");
-        // 2. O código real fica guardado aqui embaixo (comentado) para quando você quiser ativar:
-      //  return chatClient.prompt()
-        //        .system("Você é um analista de suporte. Classifique o chamado informando o departamento responsável, se é urgente e a primeira ação recomendada.")
-          //      .user(descricaoProblema)
-            //    .call()
-              //  .entity(TriagemChamado.class); // Transforma a resposta da IA direto no seu Record!
+    public TriagemChamado analisar(SolicitacaoTriagem dados) {
+        // Resposta simulada (Mock) devolvendo os dados recebidos no POST:
+        return new TriagemChamado(
+                "Suporte N1",
+                true,
+                "Contatar " + dados.solicitante() + " para verificar: " + dados.descricaoProblema()
+        );
+
+        // Código real com Gemini (mantido comentado para poupar cota):
+        // return chatClient.prompt()
+        //         .system("Você é um analista de suporte. Classifique o chamado informando o departamento responsável, se é urgente e a primeira ação recomendada.")
+        //         .user("Solicitante: " + dados.solicitante() + " | Problema: " + dados.descricaoProblema())
+        //         .call()
+        //         .entity(TriagemChamado.class);
     }
 }
